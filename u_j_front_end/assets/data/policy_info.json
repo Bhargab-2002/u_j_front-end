@@ -1,0 +1,205 @@
+{
+  "_id": "policy_holder_details_v1",
+  "productCode": "HEALTH_001",
+  "step": "POLICY_HOLDER",
+  "stepOrder": 3,
+  "screenId": "policy_holder_details",
+
+  "title": "Policy Holder Information",
+  "subtitle":
+  "Provide comprehensive details of the Primary Policy Holder as per official documents",
+
+  "sections": [
+
+    {
+      "sectionCode": "A",
+      "title": "Preliminary Details",
+      "fields": [
+        {
+          "key": "fullName",
+          "label": "FULL Name (as per Pan Card)",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "gender",
+          "label": "SELECT YOUR GENDER",
+          "type": "radio",
+          "options": ["Male", "Female", "Others"],
+          "required": true
+        },
+        {
+          "key": "dob",
+          "label": "DATE OF BIRTH (as per Pan Card)",
+          "type": "date",
+          "placeholder": "DD/MM/YYYY",
+          "required": true
+        },
+        {
+          "key": "maritalStatus",
+          "label": "MARITAL STATUS",
+          "type": "dropdown",
+          "options": ["Single", "Married", "Divorced", "Widowed"],
+          "required": true
+        },
+        {
+          "key": "motherName",
+          "label": "MOTHER'S NAME",
+          "type": "text",
+          "required": false
+        },
+        {
+          "key": "panNumber",
+          "label": "PAN NUMBER",
+          "type": "text",
+          "placeholder": "ABCDE1234F",
+          "minLength": 10,
+          "maxLength": 10,
+          "required": true
+        }
+      ]
+    },
+
+    {
+      "sectionCode": "B",
+      "title": "Communication Details",
+      "fields": [
+        {
+          "key": "address1",
+          "label": "CURRENT RESIDENTIAL ADDRESS 1",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "address2",
+          "label": "CURRENT RESIDENTIAL ADDRESS 2",
+          "type": "text",
+          "required": false
+        },
+        {
+          "key": "pincode",
+          "label": "PINCODE",
+          "type": "number",
+          "required": true
+        },
+        {
+          "key": "email",
+          "label": "EMAIL ADDRESS",
+          "type": "text",
+          "required": true
+        }
+      ]
+    },
+
+
+    {
+      "sectionCode": "C",
+      "title": "Professional Details",
+      "fields": [
+        {
+          "key": "annualIncome",
+          "label": "ANNUAL INCOME BRACKET",
+          "type": "dropdown",
+          "options": [
+            "0 - 2.5 Lakhs",
+            "2.5 - 5 Lakhs",
+            "5 - 15 Lakhs",
+            "15 - 20 Lakhs",
+            "20 - 30 Lakhs",
+            "Above 30 Lakhs"
+          ],
+          "required": true
+        },
+        {
+          "key": "occupation",
+          "label": "OCCUPATION CATEGORY",
+          "type": "dropdown",
+          "options": [
+            "Student",
+            "Salaried",
+            "Retired",
+            "Business Owner",
+            "Housewife",
+            "Others"
+          ],
+          "required": true
+        },
+        {
+          "key": "organizationType",
+          "label": "ORGANIZATIONAL TYPE",
+          "type": "dropdown",
+          "options": [
+            "Government",
+            "Private Limited",
+            "Public Limited",
+            "Trust",
+            "Other"
+          ],
+          "required": true
+        },
+        {
+          "key": "nationality",
+          "label": "NATIONALITY",
+          "type": "dropdown",
+          "options": ["Indian"],
+          "required": true
+        },
+        {
+          "key": "residentialStatus",
+          "label": "RESIDENTIAL STATUS",
+          "type": "dropdown",
+          "options": ["Resident Indian", "NRI"],
+          "required": true
+        },
+        {
+          "key": "educationLevel",
+          "label": "EDUCATIONAL LEVEL",
+          "type": "dropdown",
+          "options": [
+            "Post Graduate",
+            "Graduate",
+            "Matriculation",
+            "Under Matriculation",
+            "Other"
+          ],
+          "required": true
+        }
+      ]
+    },
+
+    {
+      "sectionCode": "D",
+      "title": "Regulatory Declarations",
+      "fields": [
+        {
+          "key": "pep",
+          "label":
+          "Are you a Politically Exposed Person (PEP) or family member/close relative/associate of PEP?",
+          "type": "boolean",
+          "defaultValue": false
+        },
+        {
+          "key": "premium2Lakhs",
+          "label":
+          "Is your total aggregate premium across all products with HDFC ERGO General Insurance Company Limited more than INR 2 lakhs?",
+          "type": "boolean",
+          "defaultValue": false
+        },
+        {
+          "key": "assets5Crores",
+          "label":
+          "Do you have investable assets for more than INR 5 crores?",
+          "type": "boolean",
+          "defaultValue": false
+        },
+        {
+          "key": "premium30Lakhs",
+          "label":
+          "Is your total aggregate premium across all retail products with HDFC ERGO General Insurance Company Limited INR 30 lakhs or more",
+          "type": "boolean",
+          "defaultValue": false
+        }
+      ]
+    }
+  ]
+}

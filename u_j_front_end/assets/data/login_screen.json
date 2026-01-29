@@ -1,0 +1,62 @@
+{
+  "screenId": "login",
+  "productCode": "product_code",
+  "step": "login",
+  "type": "STATIC",
+  "login_section" : {
+    "title" : "Welcome Back",
+    "logo": {
+      "url": "https://cdn.dribbble.com/userupload/9428442/file/original-2bec341d492269c76824904755a2c038.png?resize=752x&vertical=center",
+      "height": 80,
+      "width": 80
+      },
+      "fields": [
+        {
+          "key": "phone",
+          "label": "Mobile Number",
+          "type": "Number",
+          "field_type" : "text",
+          "placeHolder": "Enter Mobile Number",
+          "defaultValue": "",
+          "required": true,
+          "visible": true,
+          "enabled": true,
+          "editable": true,
+          "options" : null,
+          "icon": "phone",
+          "validation": {
+            "minLength": 3,
+            "maxLength": 50,
+            "regex": "^[6-9]\\d{9}$",
+            "errorMessage": "Please enter a valid phone number"
+          }
+        },
+        {
+          "key": "password",
+          "label": "Password",
+          "type": "Alphanumeric",
+          "placeHolder": "Enter Password",
+          "field_type" : "password",
+           "icon": "lock",
+          "defaultValue": "",
+          "required": true,
+          "visible": true,
+          "enabled": true,
+          "editable": true,
+          "options" : null,
+          "validation": null
+        }
+      ]
+    },
+    "actions": {
+      "button" : [{
+        "primary": {
+          "label": "Login",
+          "type": "button",
+          "filed_type" : "submit",
+          "method": "POST",
+          "backend_end_point": "/api/auth/login",
+          "next_page": "/{next_page}"
+        }}
+      ]}
+}

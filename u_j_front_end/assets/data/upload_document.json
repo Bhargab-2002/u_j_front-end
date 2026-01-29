@@ -1,0 +1,44 @@
+{
+  "_id": "upload_documents_v1",
+  "productCode": "HEALTH_001",
+  "step": "UPLOAD_DOCUMENTS",
+  "stepOrder": 4,
+  "screenId": "upload_documents",
+
+  "title": "Upload Your Document",
+  "subtitle": "Supports JPG, PNG, PDF, DOC, DOCX up to 5MB",
+
+  "fileRules": {
+    "maxFileSizeMB": 5,
+    "allowedFormats": ["jpg", "jpeg", "png", "pdf", "doc", "docx"]
+  },
+
+  "documents": [
+    {
+      "documentCode": "HOSPITALIZATION",
+      "key": "hospitalization",
+      "title": "Hospitalization Record",
+      "subtitle": "Discharge Summary",
+      "mandatory": true
+    },
+    {
+      "documentCode": "ADDITIONAL",
+      "key": "additional",
+      "title": "Additional Records",
+      "subtitle": "Lab, MRI, X-Ray",
+      "mandatory": true
+    },
+    {
+      "documentCode": "DOCTOR_CERTIFICATE",
+      "key": "doctor",
+      "title": "Doctor Certificate",
+      "subtitle": "Signed by physician",
+      "mandatory": true
+    }
+  ],
+
+  "cta": {
+    "continueEnabledRule": "ALL_MANDATORY_UPLOADED",
+    "nextStep": "REVIEW"
+  }
+}

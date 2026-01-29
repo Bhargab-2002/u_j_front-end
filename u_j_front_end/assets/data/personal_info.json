@@ -1,0 +1,100 @@
+{
+  "_id": "member_details_v1",
+  "productCode": "HEALTH_001",
+  "step": "PERSONAL",
+  "stepOrder": 1,
+  "screenId": "member_details",
+  "title": "Personal Information",
+  "subtitle":
+  "Enter your personal details and get started with your insurance application",
+  "sections": [
+    {
+      "title": "Personal Details",
+      "fields": [
+        {
+          "key": "fullName",
+          "label": "Full Name (as per PAN Card)",
+          "type": "text",
+          "placeholder": "Enter full name"
+        },
+        {
+          "key": "gender",
+          "label": "Select Your Gender",
+          "type": "radio",
+          "options": ["Male", "Female", "Others"]
+        },
+        {
+          "key": "dob",
+          "label": "Date of Birth (as per PAN Card)",
+          "type": "dob_age"
+        },
+        {
+          "key": "weight",
+          "label": "Weight",
+          "type": "number"
+        },
+        {
+          "key": "height",
+          "label": "Height",
+          "type": "number"
+        }
+      ]
+    },
+    {
+      "title": "Health Details",
+      "fields": [
+        {
+          "key": "anyAilment",
+          "label":
+          "Does the insured member have any ailment / disability ?",
+          "type": "boolean"
+        },
+        {
+          "key": "plannedSurgery",
+          "label":
+          "Is there any surgery planned for the insured member ?",
+          "type": "boolean"
+        },
+        {
+          "key": "onMedication",
+          "label":
+          "If the insured member is on any regular medication ?",
+          "type": "boolean"
+        },
+        {
+          "key": "medicalTest",
+          "label":
+          "Has the insured member undergone any test or medical investigation ?",
+          "type": "boolean"
+        },
+        {
+          "key": "hospitalization",
+          "label":
+          "Is there any hospitalization history of the insured member ?",
+          "type": "boolean"
+        },
+        {
+          "key": "disabilityCover",
+          "label":
+          "Are you having any disability including accidental covers ?",
+          "type": "boolean"
+        }
+      ]
+    },
+    {
+      "title": "Additional Details",
+      "fields": [
+        {
+          "key": "politicallyExposed",
+          "label": "Are You Politically Exposed?",
+          "type": "boolean"
+        },
+        {
+          "key": "abhaId",
+          "label": "Do You Have An ABHA Id?",
+          "type": "boolean"
+        }
+      ]
+    }
+  ]
+}

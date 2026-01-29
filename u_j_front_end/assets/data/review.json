@@ -1,0 +1,145 @@
+{
+  "_id": "review_v1",
+  "productCode": "HEALTH_001",
+  "step": "REVIEW",
+  "stepOrder": 5,
+  "screenId": "review",
+
+  "title": "Review",
+  "subtitle": "Please review your information before payment",
+
+
+  "planSummary": {
+    "selectedPlanKey": "planName",
+    "premiumKey": "totalPremium",
+    "billingCycle": "yearly",
+    "benefits": [
+      "80% bill amount paid",
+      "Get up to 25k tax deduction",
+      "Standard waiting period"
+    ]
+  },
+
+
+  "sections": [
+
+    {
+      "sectionCode": "A",
+      "title": "Preliminary Details",
+      "items": [
+        {
+          "label": "FULL Name (as per Pan Card)",
+          "key": "fullName"
+        },
+        {
+          "label": "GENDER",
+          "key": "gender"
+        },
+        {
+          "label": "DATE OF BIRTH",
+          "key": "dob"
+        },
+        {
+          "label": "MOTHER'S NAME",
+          "key": "motherName"
+        },
+        {
+          "label": "MARITAL STATUS",
+          "key": "maritalStatus"
+        },
+        {
+          "label": "PAN NUMBER",
+          "key": "panNumber"
+        }
+      ]
+    },
+
+    {
+      "sectionCode": "B",
+      "title": "Communication Details",
+      "items": [
+        {
+          "label": "CURRENT RESIDENTIAL ADDRESS 1",
+          "key": "address1"
+        },
+        {
+          "label": "PINCODE",
+          "key": "pincode"
+        },
+        {
+          "label": "EMAIL ADDRESS",
+          "key": "email"
+        },
+        {
+          "label": "PHONE NUMBER",
+          "key": "phoneNumber"
+        }
+      ]
+    },
+
+
+    {
+      "sectionCode": "C",
+      "title": "Professional Details",
+      "items": [
+        {
+          "label": "ANNUAL INCOME BRACKET",
+          "key": "annualIncome"
+        },
+        {
+          "label": "OCCUPATION CATEGORY",
+          "key": "occupation"
+        },
+        {
+          "label": "ORGANIZATIONAL TYPE",
+          "key": "organizationType"
+        },
+        {
+          "label": "NATIONALITY",
+          "key": "nationality"
+        },
+        {
+          "label": "RESIDENTIAL STATUS",
+          "key": "residentialStatus"
+        },
+        {
+          "label": "EDUCATIONAL LEVEL",
+          "key": "educationLevel"
+        }
+      ]
+    },
+
+
+    {
+      "sectionCode": "D",
+      "title": "Uploaded Documents",
+      "type": "documents",
+      "items": [
+        {
+          "label": "Hospitalization Record",
+          "key": "hospitalization"
+        },
+        {
+          "label": "Additional Records",
+          "key": "additional"
+        },
+        {
+          "label": "Doctor Certificate",
+          "key": "doctor"
+        }
+      ]
+    }
+  ],
+
+
+  "actions": {
+    "edit": {
+      "label": "EDIT",
+      "navigateToStep": "PERSONAL"
+    },
+    "proceed": {
+      "label": "PROCEED TO PAY",
+      "nextStep": "PAYMENT"
+    }
+  }
+}

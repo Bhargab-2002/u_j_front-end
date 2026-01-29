@@ -1,0 +1,29 @@
+{
+  "title": "Explore health plans",
+  "subtitle": "Compare and choose the best protection for your family",
+
+  "features": [
+    "Access to 11,350+ cashless hospitals",
+    "No limit on hospital"
+  ],
+
+  "plans": [
+    {
+        "title": "Silver",
+      "price": 500
+    },
+    {
+      "title": "Gold",
+      "price": 725,
+      "badgeText": "Express policy approval",
+      "badgeColor": "orange"
+
+    },
+    {
+      "title": "Diamond",
+      "price": 1000,
+      "badgeText": "Include annual health check",
+      "badgeColor": "orange"
+    }
+  ]
+}
