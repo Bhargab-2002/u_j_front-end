@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 import 'personal_information_screen.dart';
 import 'forget_password.dart';
+import '../utils/widget_builder.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -21,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final jsonString =
         await rootBundle.loadString('assets/data/login_screen.json');
 
-    // IMPORTANT: convert LinkedMap → Map<String, dynamic>
+    // ✅ Convert LinkedMap → Map<String, dynamic>
     return Map<String, dynamic>.from(json.decode(jsonString));
   }
 
@@ -41,6 +42,9 @@ class _LoginScreenState extends State<LoginScreen> {
         final config = snapshot.data!;
 
         // ✅ SAFE JSON CONVERSIONS
+        final Map<String, dynamic> leftImageSection =
+            Map<String, dynamic>.from(config["left_image_section"] ?? {});
+
         final Map<String, dynamic> loginSection =
             Map<String, dynamic>.from(config["login_section"] ?? {});
 
@@ -53,8 +57,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 .toList();
 
         final String actionLabel =
-            config["actions"]?["button"]?[0]?["primary"]?["label"] ??
-                "Login";
+            config["actions"]?["button"]?[0]?["primary"]?["label"] ?? "Login";
+
+        // Get flex values from JSON
+        final int leftImageFlex = leftImageSection["flex"] ?? 5;
+        final int loginSectionFlex = loginSection["flex"] ?? 4;
+
+        // Build image section widget
+        final Widget? leftImageWidget =
+            WidgetBuilderUtil.buildImageSection(imageSection: leftImageSection);
 
         return Scaffold(
           backgroundColor: const Color(0xFFF4F6FA),
@@ -77,24 +88,16 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               child: Row(
                 children: [
-                  // LEFT IMAGE SECTION (UNCHANGED)
-                  Expanded(
-                    flex: 5,
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(22),
-                        bottomLeft: Radius.circular(22),
-                      ),
-                      child: Image.asset(
-                        '/Users/bhargabdas/FlutterDev/res/images/IMG_6822.jpg',
-                        fit: BoxFit.cover,
-                      ),
+                  // 🔹 LEFT IMAGE SECTION (FROM JSON)
+                  if (leftImageWidget != null)
+                    Expanded(
+                      flex: leftImageFlex,
+                      child: leftImageWidget,
                     ),
-                  ),
 
                   // RIGHT LOGIN FORM
                   Expanded(
-                    flex: 4,
+                    flex: loginSectionFlex,
                     child: SingleChildScrollView(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
@@ -116,8 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   borderRadius: BorderRadius.circular(16),
                                   boxShadow: [
                                     BoxShadow(
-                                      color:
-                                          Colors.black.withOpacity(0.1),
+                                      color: Colors.black.withOpacity(0.1),
                                       blurRadius: 20,
                                       offset: const Offset(0, 8),
                                     ),
@@ -127,9 +129,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ? Image.network(
                                         logo["url"],
                                         fit: BoxFit.contain,
-                                        errorBuilder:
-                                            (_, __, ___) =>
-                                                const Icon(Icons.image),
+                                        errorBuilder: (_, __, ___) =>
+                                            const Icon(Icons.image),
                                       )
                                     : const SizedBox.shrink(),
                               ),
@@ -151,15 +152,28 @@ class _LoginScreenState extends State<LoginScreen> {
 
                             const SizedBox(height: 36),
 
-                            // 🔹 FIELDS (VISIBLE ONLY)
+                            // 🔹 JSON LOOP → WIDGET BUILDER
                             ...fields
                                 .where((f) => f["visible"] == true)
-                                .map(_buildField)
+                                .map(
+                                  (field) => WidgetBuilderUtil.buildField(
+                                    field: field,
+                                    obscurePassword: _obscurePassword,
+                                    onTogglePassword: (value) {
+                                      setState(() {
+                                        _obscurePassword = value;
+                                      });
+                                    },
+                                    onChanged: (value) {
+                                      formData[field["key"]] = value;
+                                    },
+                                  ),
+                                )
                                 .toList(),
 
                             const SizedBox(height: 14),
 
-                            // FORGET PASSWORD (UNCHANGED)
+                            // FORGET PASSWORD
                             Align(
                               alignment: Alignment.centerLeft,
                               child: TextButton(
@@ -174,8 +188,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 },
                                 child: const Text(
                                   'Forget Password?',
-                                  style:
-                                      TextStyle(color: Colors.blue),
+                                  style: TextStyle(color: Colors.blue),
                                 ),
                               ),
                             ),
@@ -183,39 +196,17 @@ class _LoginScreenState extends State<LoginScreen> {
                             const SizedBox(height: 28),
 
                             // LOGIN BUTTON
-                            SizedBox(
-                              width: double.infinity,
-                              height: 48,
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (_) =>
-                                          const PersonalInformationScreen(),
-                                    ),
-                                  );
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor:
-                                      const Color(0xFF143A6E),
-                                  elevation: 6,
-                                  shadowColor:
-                                      Colors.black.withOpacity(0.3),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.circular(14),
+                            WidgetBuilderUtil.buildPrimaryButton(
+                              label: actionLabel,
+                              onPressed: () {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) =>
+                                        const PersonalInformationScreen(),
                                   ),
-                                ),
-                                child: Text(
-                                  actionLabel,
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
+                                );
+                              },
                             ),
                           ],
                         ),
@@ -228,75 +219,6 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         );
       },
-    );
-  }
-
-  // ================= ICON RESOLVER =================
-
-  IconData _resolveIcon(String? iconName) {
-    switch (iconName) {
-      case "phone":
-        return Icons.phone;
-      case "lock":
-        return Icons.lock;
-      case "email":
-        return Icons.email;
-      case "user":
-        return Icons.person;
-      default:
-        return Icons.text_fields; // safe fallback
-    }
-  }
-
-  // ================= FIELD BUILDER =================
-
-  Widget _buildField(Map<String, dynamic> field) {
-    final bool isPassword = field["field_type"] == "password";
-    final bool isPhone = field["key"] == "phone";
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          field["label"] ?? "",
-          style: const TextStyle(fontWeight: FontWeight.w600),
-        ),
-        const SizedBox(height: 8),
-        TextField(
-          keyboardType:
-              isPhone ? TextInputType.phone : TextInputType.text,
-          obscureText: isPassword ? _obscurePassword : false,
-          onChanged: (v) => formData[field["key"]] = v,
-          decoration: InputDecoration(
-            hintText: field["placeHolder"] ?? "",
-            prefixIcon: Icon(
-              _resolveIcon(field["icon"]),
-            ),
-            suffixIcon: isPassword
-                ? IconButton(
-                    icon: Icon(
-                      _obscurePassword
-                          ? Icons.visibility_off
-                          : Icons.visibility,
-                    ),
-                    onPressed: () =>
-                        setState(() => _obscurePassword = !_obscurePassword),
-                  )
-                : null,
-            filled: true,
-            fillColor: const Color(0xFFF7F8FA),
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 16,
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(14),
-              borderSide: BorderSide.none,
-            ),
-          ),
-        ),
-        const SizedBox(height: 22),
-      ],
     );
   }
 }
