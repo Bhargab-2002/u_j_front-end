@@ -21,6 +21,17 @@
       "width": 80
     },
     "fields": [
+
+
+      {
+        "key": "subtitle",
+        "label": "welcome back please login to your account",
+        "type": "text",
+        "ui": {
+          "fontSize": 14,
+          "align": "center"
+        }
+      },
       {
         "key": "phone",
         "label": "Mobile Number",
@@ -42,7 +53,7 @@
         }
       },
       
-       
+
       {
         "key": "password",
         "label": "Password",

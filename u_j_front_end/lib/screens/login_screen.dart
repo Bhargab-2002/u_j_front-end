@@ -22,7 +22,6 @@ class _LoginScreenState extends State<LoginScreen> {
     final jsonString =
         await rootBundle.loadString('assets/data/login_screen.json');
 
-    // ✅ Convert LinkedMap → Map<String, dynamic>
     return Map<String, dynamic>.from(json.decode(jsonString));
   }
 
@@ -41,10 +40,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
         final config = snapshot.data!;
 
-        // ✅ SAFE JSON CONVERSIONS
-        final Map<String, dynamic> leftImageSection =
-            Map<String, dynamic>.from(config["left_image_section"] ?? {});
-
         final Map<String, dynamic> loginSection =
             Map<String, dynamic>.from(config["login_section"] ?? {});
 
@@ -57,15 +52,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 .toList();
 
         final String actionLabel =
-            config["actions"]?["button"]?[0]?["primary"]?["label"] ?? "Login";
-
-        // Get flex values from JSON
-        final int leftImageFlex = leftImageSection["flex"] ?? 5;
-        final int loginSectionFlex = loginSection["flex"] ?? 4;
-
-        // Build image section widget
-        final Widget? leftImageWidget =
-            WidgetBuilderUtil.buildImageSection(imageSection: leftImageSection);
+            config["actions"]?["button"]?[0]?["primary"]?["label"] ??
+                "Login";
 
         return Scaffold(
           backgroundColor: const Color(0xFFF4F6FA),
@@ -88,16 +76,24 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               child: Row(
                 children: [
-                  // 🔹 LEFT IMAGE SECTION (FROM JSON)
-                  if (leftImageWidget != null)
-                    Expanded(
-                      flex: leftImageFlex,
-                      child: leftImageWidget,
+                  // LEFT IMAGE SECTION (UNCHANGED)
+                  Expanded(
+                    flex: 5,
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(22),
+                        bottomLeft: Radius.circular(22),
+                      ),
+                      child: Image.asset(
+                        '/Users/bhargabdas/FlutterDev/res/images/IMG_6822.jpg',
+                        fit: BoxFit.cover,
+                      ),
                     ),
+                  ),
 
                   // RIGHT LOGIN FORM
                   Expanded(
-                    flex: loginSectionFlex,
+                    flex: 4,
                     child: SingleChildScrollView(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
@@ -105,7 +101,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           vertical: 40,
                         ),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          // ✅ IMPORTANT FIX
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             // LOGO (FROM JSON)
@@ -129,8 +126,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ? Image.network(
                                         logo["url"],
                                         fit: BoxFit.contain,
-                                        errorBuilder: (_, __, ___) =>
-                                            const Icon(Icons.image),
+                                        errorBuilder:
+                                            (_, __, ___) =>
+                                                const Icon(Icons.image),
                                       )
                                     : const SizedBox.shrink(),
                               ),
@@ -139,41 +137,51 @@ class _LoginScreenState extends State<LoginScreen> {
                             const SizedBox(height: 28),
 
                             // TITLE
-                            Center(
-                              child: Text(
-                                loginSection["title"] ?? "",
-                                style: const TextStyle(
-                                  fontSize: 28,
-                                  fontWeight: FontWeight.w700,
-                                  letterSpacing: -0.5,
-                                ),
-                              ),
+                            Text(
+                              loginSection["title"] ?? "",
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                              fontSize: 28,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: -0.5,
                             ),
 
-                            const SizedBox(height: 36),
+                            ),
 
-                            // 🔹 JSON LOOP → WIDGET BUILDER
-                            ...fields
-                                .where((f) => f["visible"] == true)
-                                .map(
-                                  (field) => WidgetBuilderUtil.buildField(
-                                    field: field,
-                                    obscurePassword: _obscurePassword,
-                                    onTogglePassword: (value) {
-                                      setState(() {
-                                        _obscurePassword = value;
-                                      });
-                                    },
-                                    onChanged: (value) {
-                                      formData[field["key"]] = value;
-                                    },
-                                  ),
-                                )
-                                .toList(),
+                            const SizedBox(height: 24),
+
+                            // 🔹 JSON LOOP (TEXT + INPUT FIELDS)
+                            ...fields.map((field) {
+                              // TEXT (subtitle / messages)
+                              if (field["type"] == "text" &&
+                                  field["field_type"] == null) {
+                                return WidgetBuilderUtil.buildText(
+                                  field: field,
+                                );
+                              }
+
+                              // INPUT FIELD
+                              if (field["visible"] == true) {
+                                return WidgetBuilderUtil.buildField(
+                                  field: field,
+                                  obscurePassword: _obscurePassword,
+                                  onTogglePassword: (value) {
+                                    setState(() {
+                                      _obscurePassword = value;
+                                    });
+                                  },
+                                  onChanged: (value) {
+                                    formData[field["key"]] = value;
+                                  },
+                                );
+                              }
+
+                              return const SizedBox.shrink();
+                            }).toList(),
 
                             const SizedBox(height: 14),
 
-                            // FORGET PASSWORD
+                            // FORGET PASSWORD (UNCHANGED)
                             Align(
                               alignment: Alignment.centerLeft,
                               child: TextButton(
@@ -195,18 +203,40 @@ class _LoginScreenState extends State<LoginScreen> {
 
                             const SizedBox(height: 28),
 
-                            // LOGIN BUTTON
-                            WidgetBuilderUtil.buildPrimaryButton(
-                              label: actionLabel,
-                              onPressed: () {
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) =>
-                                        const PersonalInformationScreen(),
+                            // LOGIN BUTTON (UNCHANGED)
+                            SizedBox(
+                              width: double.infinity,
+                              height: 48,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) =>
+                                          const PersonalInformationScreen(),
+                                    ),
+                                  );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor:
+                                      const Color(0xFF143A6E),
+                                  elevation: 6,
+                                  shadowColor:
+                                      Colors.black.withOpacity(0.3),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.circular(14),
                                   ),
-                                );
-                              },
+                                ),
+                                child: Text(
+                                  actionLabel,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
                             ),
                           ],
                         ),

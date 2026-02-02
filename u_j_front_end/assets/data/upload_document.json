@@ -21,6 +21,7 @@
       "subtitle": "Discharge Summary",
       "mandatory": true
     },
+
     {
       "documentCode": "ADDITIONAL",
       "key": "additional",

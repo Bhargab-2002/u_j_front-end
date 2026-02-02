@@ -19,6 +19,17 @@
       "badgeColor": "orange"
 
     },
+
+    {
+      "title": "platinum",
+      "price": 956,
+      "badgeText": "Express policy approval",
+      "badgeColor": "orange"
+
+    },
+
+
+
     {
       "title": "Diamond",
       "price": 1000,

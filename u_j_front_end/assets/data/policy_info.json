@@ -21,6 +21,12 @@
           "type": "text",
           "required": true
         },
+         {
+          "key": "motherName",
+          "label": "Enter your mother name",
+          "type": "text",
+          "required": true
+        },
         {
           "key": "gender",
           "label": "SELECT YOUR GENDER",

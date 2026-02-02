@@ -84,24 +84,8 @@ class WidgetBuilderUtil {
             ),
           );
         },
-        loadingBuilder: (context, child, loadingProgress) {
-          if (loadingProgress == null) return child;
-          return Container(
-            width: width,
-            height: height,
-            child: Center(
-              child: CircularProgressIndicator(
-                value: loadingProgress.expectedTotalBytes != null
-                    ? loadingProgress.cumulativeBytesLoaded /
-                        loadingProgress.expectedTotalBytes!
-                    : null,
-              ),
-            ),
-          );
-        },
       );
     } else {
-      // asset image
       imageWidget = Image.asset(
         imageUrl,
         fit: fit,
@@ -132,6 +116,53 @@ class WidgetBuilderUtil {
       child: imageWidget,
     );
   }
+
+  /* ================= TEXT BUILDER ================= */
+
+static Widget buildText({
+  required Map<String, dynamic> field,
+}) {
+  final Map<String, dynamic> ui =
+      Map<String, dynamic>.from(field["ui"] ?? {});
+
+  final double fontSize = (ui["fontSize"] ?? 16).toDouble();
+  final String align = ui["align"] ?? "left";
+
+  TextAlign textAlign;
+  Alignment alignment;
+
+  switch (align) {
+    case "center":
+      textAlign = TextAlign.center;
+      alignment = Alignment.center;
+      break;
+    case "right":
+      textAlign = TextAlign.right;
+      alignment = Alignment.centerRight;
+      break;
+    default:
+      textAlign = TextAlign.left;
+      alignment = Alignment.centerLeft;
+  }
+
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 16),
+    child: Align(
+      alignment: alignment, // ✅ THIS is the key fix
+      child: Text(
+        field["label"] ?? "",
+        textAlign: textAlign,
+        style: TextStyle(
+          fontSize: fontSize,
+          color: Colors.grey[700],
+        ),
+      ),
+    ),
+  );
+}
+
+
+
 
   /* ================= FIELD BUILDER ================= */
 

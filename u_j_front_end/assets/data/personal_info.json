@@ -1,100 +1,124 @@
 {
-  "_id": "member_details_v1",
-  "productCode": "HEALTH_001",
+  "screenId": "personal_information",
+  "productCode": "product_code",
   "step": "PERSONAL",
-  "stepOrder": 1,
-  "screenId": "member_details",
+  "type": "STATIC",
+
   "title": "Personal Information",
-  "subtitle":
-  "Enter your personal details and get started with your insurance application",
+  "subtitle": "Enter your personal details and get started with your insurance application",
+
+  
   "sections": [
+   
+      
     {
+      "key": "personal_details",
       "title": "Personal Details",
       "fields": [
         {
           "key": "fullName",
           "label": "Full Name (as per PAN Card)",
           "type": "text",
-          "placeholder": "Enter full name"
+          "field_type": "text",
+          "placeHolder": "Enter full name",
+          "required": true,
+          "visible": true
         },
         {
           "key": "gender",
           "label": "Select Your Gender",
           "type": "radio",
-          "options": ["Male", "Female", "Others"]
+          "options": ["Male", "Female", "Others"],
+          "required": true,
+          "visible": true
         },
         {
           "key": "dob",
-          "label": "Date of Birth (as per PAN Card)",
-          "type": "dob_age"
+          "label": "Date of Birth",
+          "type": "dob_age",
+          "required": true,
+          "visible": true
         },
         {
           "key": "weight",
-          "label": "Weight",
-          "type": "number"
+          "label": "Weight (kg)",
+          "type": "input",
+          "field_type": "number",
+          "placeHolder": "Enter weight",
+          "visible": true
         },
         {
           "key": "height",
-          "label": "Height",
-          "type": "number"
+          "label": "Height (cm)",
+          "type": "input",
+          "field_type": "number",
+          "placeHolder": "Enter height",
+          "visible": true
         }
       ]
     },
     {
+      "key": "health_details",
       "title": "Health Details",
       "fields": [
         {
           "key": "anyAilment",
-          "label":
-          "Does the insured member have any ailment / disability ?",
-          "type": "boolean"
+          "label": "Does the insured member have any ailment / disability?",
+          "type": "boolean",
+          "visible": true
         },
+         
         {
           "key": "plannedSurgery",
-          "label":
-          "Is there any surgery planned for the insured member ?",
-          "type": "boolean"
+          "label": "Is there any surgery planned for the insured member?",
+          "type": "boolean",
+          "visible": true
         },
         {
           "key": "onMedication",
-          "label":
-          "If the insured member is on any regular medication ?",
-          "type": "boolean"
+          "label": "If the insured member is on any regular medication?",
+          "type": "boolean",
+          "visible": true
         },
         {
           "key": "medicalTest",
-          "label":
-          "Has the insured member undergone any test or medical investigation ?",
-          "type": "boolean"
+          "label": "Has the insured member undergone any test or medical investigation?",
+          "type": "boolean",
+          "visible": true
         },
         {
           "key": "hospitalization",
-          "label":
-          "Is there any hospitalization history of the insured member ?",
-          "type": "boolean"
+          "label": "Is there any hospitalization history of the insured member?",
+          "type": "boolean",
+          "visible": true
         },
         {
           "key": "disabilityCover",
-          "label":
-          "Are you having any disability including accidental covers ?",
-          "type": "boolean"
+          "label": "Are you having any disability including accidental covers?",
+          "type": "boolean",
+          "visible": true
         }
       ]
     },
     {
+      "key": "additional_details",
       "title": "Additional Details",
       "fields": [
         {
           "key": "politicallyExposed",
           "label": "Are You Politically Exposed?",
-          "type": "boolean"
+          "type": "boolean",
+          "visible": true
         },
         {
           "key": "abhaId",
           "label": "Do You Have An ABHA Id?",
-          "type": "boolean"
+          "type": "boolean",
+          "visible": true
         }
       ]
     }
   ]
 }
+
+
